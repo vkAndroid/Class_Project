@@ -1,4 +1,4 @@
-package vincentrk42.carddeck;
+package vincentrk42.pushgo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
