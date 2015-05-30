@@ -38,6 +38,13 @@ public class Series {
         this.description = description;
     }
 
+    public ArrayList<Event> getEvents() { return sequence; }
+
+    public void addEvent(String title, String description) {
+        Event e = new Event(title, description);
+        sequence.add(e);
+    }
+
     public void addEvent(String title, String description, int position) {
         Event e = new Event(title, description);
         sequence.add(position, e);
@@ -52,4 +59,15 @@ public class Series {
         sequence.remove(initialPosition);
         sequence.add(finalPosition, e);
     }
+
+    public Event getEvent(int position) {
+        return sequence.get(position);
+    }
+
+
+
+
+
+
+
 }

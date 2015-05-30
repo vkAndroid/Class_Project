@@ -43,26 +43,7 @@
         android:layout_weight="3"
         android:layout_height="0dp" />
 
-    <TextView
-        android:text="@string/end_trigger_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <Spinner
-        android:id="@+id/additionalOptionsSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    </Spinner>
-
-    <!--This will be used for the various end trigger types in determining which to use
-            and the appropriate settings for each type-->
-    <View
-        android:id="@+id/additionalOptionsView"
-        android:layout_width="match_parent"
-        android:layout_weight="6"
-        android:layout_height="0dp">
-
-    </View>
 
 </LinearLayout>
