@@ -16,19 +16,21 @@ public class SeriesActivity extends ActionBarActivity {
     private EventAdapter eventAdapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.series_layout);
+    public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "ONCREATE CALLED FROM SERIESACTIVITY");
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.series_layout);
 
-        serie = new Series("Title", "Description");
-        serie.addEvent("EventTitle1", "Event Desctription 1");
-        serie.addEvent("EventTitle2", "Event Desctription 2");
-        serie.addEvent("EventTitle3", "Event Desctription 3");
-        serie.addEvent("EventTitle4", "Event Desctription 4");
-        serie.addEvent("EventTitle5", "Event Desctription 5");
+        serie = getIntent().getExtras().getParcelable("serie");
 
-        ListView eventListView = (ListView) findViewById(R.id.seriesListView);
+//        serie = new Series("Title", "Description");
+//        serie.addEvent("EventTitle1", "Event Description 1");
+//        serie.addEvent("EventTitle2", "Event Description 2");
+//        serie.addEvent("EventTitle3", "Event Description 3");
+//        serie.addEvent("EventTitle4", "Event Description 4");
+//        serie.addEvent("EventTitle5", "Event Description 5");
+
+        ListView eventListView = (ListView) findViewById(R.id.eventListView);
         eventAdapter = new EventAdapter(this, serie.getEvents());
         eventListView.setAdapter(eventAdapter);
 

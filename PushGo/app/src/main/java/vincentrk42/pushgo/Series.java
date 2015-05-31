@@ -1,11 +1,14 @@
 package vincentrk42.pushgo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by Vincent on 5/3/2015.
  */
-public class Series {
+public class Series implements Parcelable{
     private ArrayList<Event> sequence;
     private String title;
     private String description;
@@ -66,8 +69,47 @@ public class Series {
 
 
 
+    // Parcelable starts here
+    protected Series(Parcel in) {
+        if (in.readByte() == 0x01) {
+            sequence = new ArrayList<Event>();
+            in.readList(sequence, Event.class.getClassLoader());
+        } else {
+            sequence = null;
+        }
+        title = in.readString();
+        description = in.readString();
+    }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (sequence == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(sequence);
+        }
+        dest.writeString(title);
+        dest.writeString(description);
+    }
 
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Series> CREATOR = new Parcelable.Creator<Series>() {
+        @Override
+        public Series createFromParcel(Parcel in) {
+            return new Series(in);
+        }
+
+        @Override
+        public Series[] newArray(int size) {
+            return new Series[size];
+        }
+    };
+    // Parcelable ends here
 
 }

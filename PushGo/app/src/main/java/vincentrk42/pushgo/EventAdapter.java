@@ -28,10 +28,10 @@ public class EventAdapter extends ArrayAdapter<Event> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.serie_layout, parent, false);
+        View view = inflater.inflate(R.layout.event_listview_layout, parent, false);
 
-        TextView eventNumberAndTitle = (TextView) view.findViewById(R.id.eventNumberAndTitle);
-        eventNumberAndTitle.setText((position+1) + " | " + events.get(position).getTitle());
+        TextView eventNumberAndTitleTextView = (TextView) view.findViewById(R.id.eventNumberAndTitleTextView);
+        eventNumberAndTitleTextView.setText((position+1) + " | " + (events.get(position)).getTitle());
 
         Button eventUpButton = (Button) view.findViewById(R.id.eventUpButton);
         eventUpButton.setOnClickListener(new View.OnClickListener() {

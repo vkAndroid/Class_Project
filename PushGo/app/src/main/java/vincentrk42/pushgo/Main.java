@@ -29,10 +29,14 @@ public class Main extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         // load series info from memory
-        series.add(new Series("Title1", "Description1"));
-        series.add(new Series("Title2", "Description2"));
-        series.add(new Series("Title3", "Description3"));
-        series.add(new Series("Title4", "Description4"));
+        for(int i=0; i<10; i++)
+        {
+            series.add(new Series("S-Title" + i, "S-Description" + i));
+            for(int j=0; j<12; j++)
+            {
+                series.get(i).addEvent("E-Title" + i + ", " + j, "E-Description" + i + ", " + j);
+            }
+        }
 
         ListView seriesListView = (ListView) findViewById(R.id.seriesListView);
         seriesAdapter = new SeriesAdapter(this, series);

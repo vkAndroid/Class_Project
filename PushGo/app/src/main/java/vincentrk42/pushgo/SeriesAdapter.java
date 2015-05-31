@@ -1,6 +1,7 @@
 package vincentrk42.pushgo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +40,11 @@ public class SeriesAdapter extends ArrayAdapter<Series> {
             public void onClick(View v) {
                 Log.d(TAG, "edit button clicked: " + position);
 
+                Intent intent = new Intent(getContext(), SeriesActivity.class);
+                intent.putExtra("serie", series.get(position));
+                context.startActivity(intent);
 
-                
+
             }
         });
 
