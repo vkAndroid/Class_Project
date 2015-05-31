@@ -1,5 +1,8 @@
 package vincentrk42.pushgo;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,8 +20,12 @@ public class SeriesActivity extends ActionBarActivity {
 
     private static final String TAG = "SeriesActivity";
 
-    private static final int NEW_REQUEST_CODE = 2;
-    private static final int EDIT_REQUEST_CODE = 1;
+    private static final int NEW_EVENT_REQUEST_CODE = 2;
+    private static final int EDIT_EVENT_REQUEST_CODE = 1;
+    private static final int DELETE_SERIES_RESULT_CODE = 13;
+    private static final int DELETE_EVENT_RESULT_CODE = 3;
+
+    private final Context context = this;
 
     private Series serie;
     private EventAdapter eventAdapter;
@@ -72,7 +79,7 @@ public class SeriesActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SeriesActivity.this, EventActivity.class);
-                startActivityForResult(intent, NEW_REQUEST_CODE);
+                startActivityForResult(intent, NEW_EVENT_REQUEST_CODE);
             }
         });
 
@@ -95,7 +102,27 @@ public class SeriesActivity extends ActionBarActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Are you sure?")
+                       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               Intent intent = new Intent();
+                               if(position >= 0) {
+                                   intent.putExtra("seriePosition", position);
+                               }
+                               setResult(DELETE_SERIES_RESULT_CODE, intent);
+                               finish();
+                           }
+                       })
+                       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               dialog.cancel();
+                           }
+                       });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 
@@ -105,7 +132,7 @@ public class SeriesActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == NEW_REQUEST_CODE){
+        if(requestCode == NEW_EVENT_REQUEST_CODE){
             if(resultCode == RESULT_OK) {
                 Event e = data.getExtras().getParcelable("event");
                 if(serie == null)
@@ -115,15 +142,19 @@ public class SeriesActivity extends ActionBarActivity {
                 serie.addEvent(e);
             }
         }
-        if(requestCode == EDIT_REQUEST_CODE){
+        if(requestCode == EDIT_EVENT_REQUEST_CODE){
             if(resultCode == RESULT_OK) {
                 int pos = data.getExtras().getInt("eventPosition");
                 Event e = data.getExtras().getParcelable("event");
                 serie.editEvent(e, pos);
             }
         }
+        if(resultCode == DELETE_EVENT_RESULT_CODE) {
+            int pos = data.getExtras().getInt("eventPosition");
+            Log.d(TAG, "REMOVING EVENT : " + pos);
+            serie.removeEvent(pos);
+        }
 
-        // TODO
         eventAdapter.notifyDataSetChanged();
     }
 

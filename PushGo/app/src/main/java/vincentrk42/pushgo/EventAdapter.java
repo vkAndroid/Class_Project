@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class EventAdapter extends ArrayAdapter<Event> {
 
     private static final String TAG = "EventAdapter";
-    private static final int EDIT_REQUEST_CODE = 1;
+    private static final int EDIT_EVENT_REQUEST_CODE = 1;
 
 
     private Context context;
@@ -67,7 +67,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
                 Intent intent = new Intent(getContext(), EventActivity.class);
                 intent.putExtra("event", events.get(position));
                 intent.putExtra("eventPosition", position);
-                ((Activity)context).startActivityForResult(intent, EDIT_REQUEST_CODE);
+                ((Activity)context).startActivityForResult(intent, EDIT_EVENT_REQUEST_CODE);
 
 
             }

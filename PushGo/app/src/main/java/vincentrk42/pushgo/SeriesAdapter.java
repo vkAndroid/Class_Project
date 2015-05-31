@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class SeriesAdapter extends ArrayAdapter<Series> {
 
     private static final String TAG = "SeriesAdapter";
-    private static final int EDIT_REQUEST_CODE = 11;
+    private static final int EDIT_SERIES_REQUEST_CODE = 11;
 
 
     private Context context;
@@ -46,7 +46,7 @@ public class SeriesAdapter extends ArrayAdapter<Series> {
                 Intent intent = new Intent(getContext(), SeriesActivity.class);
                 intent.putExtra("serie", series.get(position));
                 intent.putExtra("seriePosition", position);
-                ((Activity)context).startActivityForResult(intent, EDIT_REQUEST_CODE);
+                ((Activity)context).startActivityForResult(intent, EDIT_SERIES_REQUEST_CODE);
 
 
             }

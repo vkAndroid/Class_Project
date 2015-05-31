@@ -17,8 +17,9 @@ import java.util.ArrayList;
 public class Main extends ActionBarActivity {
 
     private static final String TAG = "MainActivity";
-    private static final int NEW_REQUEST_CODE = 12;
-    private static final int EDIT_REQUEST_CODE = 11;
+    private static final int NEW_SERIES_REQUEST_CODE = 12;
+    private static final int EDIT_SERIES_REQUEST_CODE = 11;
+    private static final int DELETE_SERIES_RESULT_CODE = 13;
 
     private ArrayList<Series> series;
     private SeriesAdapter seriesAdapter;
@@ -54,7 +55,7 @@ public class Main extends ActionBarActivity {
             public void onClick(View v) {
                 Log.d(TAG, "createNewSequenceButton clicked");
                 Intent intent = new Intent(Main.this, SeriesActivity.class);
-                startActivityForResult(intent, NEW_REQUEST_CODE);
+                startActivityForResult(intent, NEW_SERIES_REQUEST_CODE);
 
             }
         });
@@ -64,19 +65,24 @@ public class Main extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == NEW_REQUEST_CODE){
+        if(requestCode == NEW_SERIES_REQUEST_CODE){
             if(resultCode == RESULT_OK) {
                 Series serie = data.getExtras().getParcelable("serie");
                 addSerie(serie);
             }
         }
-        if(requestCode == EDIT_REQUEST_CODE){
+        if(requestCode == EDIT_SERIES_REQUEST_CODE){
             if(resultCode == RESULT_OK) {
                 int pos = data.getExtras().getInt("seriePosition");
                 Series serie = data.getExtras().getParcelable("serie");
                 editSeries(pos, serie);
             }
         }
+        if(resultCode == DELETE_SERIES_RESULT_CODE){
+            int pos = data.getExtras().getInt("seriePosition");
+            removeSeries(pos);
+        }
+
 
         // TODO
         seriesAdapter.notifyDataSetChanged();
@@ -112,7 +118,9 @@ public class Main extends ActionBarActivity {
 
     private void removeSeries(int position)
     {
-        series.remove(position);
+        if(position <= series.size()) {
+            series.remove(position);
+        }
     }
 
     private void editSeries(int position, Series serie)
@@ -148,5 +156,5 @@ public class Main extends ActionBarActivity {
 //    }
 
 
-    
+
 }
