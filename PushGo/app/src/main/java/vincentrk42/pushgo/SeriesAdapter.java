@@ -1,5 +1,6 @@
 package vincentrk42.pushgo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 public class SeriesAdapter extends ArrayAdapter<Series> {
 
     private static final String TAG = "SeriesAdapter";
+    private static final int EDIT_REQUEST_CODE = 11;
+
 
     private Context context;
     private ArrayList<Series> series;
@@ -42,7 +45,8 @@ public class SeriesAdapter extends ArrayAdapter<Series> {
 
                 Intent intent = new Intent(getContext(), SeriesActivity.class);
                 intent.putExtra("serie", series.get(position));
-                context.startActivity(intent);
+                intent.putExtra("seriePosition", position);
+                ((Activity)context).startActivityForResult(intent, EDIT_REQUEST_CODE);
 
 
             }
@@ -61,4 +65,6 @@ public class SeriesAdapter extends ArrayAdapter<Series> {
 
         return view;
     }
+
+
 }

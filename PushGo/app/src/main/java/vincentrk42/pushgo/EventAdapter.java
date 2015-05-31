@@ -1,6 +1,8 @@
 package vincentrk42.pushgo;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 public class EventAdapter extends ArrayAdapter<Event> {
 
     private static final String TAG = "EventAdapter";
+    private static final int EDIT_REQUEST_CODE = 1;
+
 
     private Context context;
     private ArrayList<Event> events;
@@ -60,6 +64,10 @@ public class EventAdapter extends ArrayAdapter<Event> {
             public void onClick(View v) {
                 Log.d(TAG, "event EDIT button clicked: " + position);
 
+                Intent intent = new Intent(getContext(), EventActivity.class);
+                intent.putExtra("event", events.get(position));
+                intent.putExtra("eventPosition", position);
+                ((Activity)context).startActivityForResult(intent, EDIT_REQUEST_CODE);
 
 
             }

@@ -12,7 +12,7 @@ public class Event implements Parcelable{
     // Time in milliseconds before ending this event
     private long timerTrigger;
 
-    public Event(String description, String title, long timerTrigger) {
+    public Event(String title, String description, long timerTrigger) {
         this.description = description;
         this.title = title;
         this.timerTrigger = timerTrigger;

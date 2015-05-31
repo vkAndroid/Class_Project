@@ -45,11 +45,27 @@ public class Series implements Parcelable{
 
     public void addEvent(String title, String description) {
         Event e = new Event(title, description);
-        sequence.add(e);
+        addEvent(e);
     }
 
     public void addEvent(String title, String description, int position) {
         Event e = new Event(title, description);
+        addEvent(e, position);
+    }
+
+    public void addEvent(Event e)
+    {
+        sequence.add(e);
+    }
+
+    public void addEvent(Event e, int position)
+    {
+        sequence.add(position, e);
+    }
+
+    public void editEvent(Event e, int position)
+    {
+        sequence.remove(position);
         sequence.add(position, e);
     }
 
