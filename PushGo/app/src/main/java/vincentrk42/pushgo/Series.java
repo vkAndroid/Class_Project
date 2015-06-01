@@ -83,6 +83,11 @@ public class Series implements Parcelable{
         return sequence.get(position);
     }
 
+    public int size()
+    {
+        return sequence.size();
+    }
+
 
 
     // Parcelable starts here

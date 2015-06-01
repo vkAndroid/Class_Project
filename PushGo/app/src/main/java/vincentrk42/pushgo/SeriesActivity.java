@@ -62,7 +62,7 @@ public class SeriesActivity extends ActionBarActivity {
             position = getIntent().getExtras().getInt("seriePosition");
         }
         if(!newSerie) {
-            numStepsTextView.setText("Steps: " + serie.getEvents().size());
+            updateNumSteps();
             serieTitleEditText.setText(serie.getTitle());
         }
         else {
@@ -154,8 +154,13 @@ public class SeriesActivity extends ActionBarActivity {
             Log.d(TAG, "REMOVING EVENT : " + pos);
             serie.removeEvent(pos);
         }
-
+        updateNumSteps();
         eventAdapter.notifyDataSetChanged();
+    }
+
+    private void updateNumSteps()
+    {
+        numStepsTextView.setText("Steps: " + serie.getEvents().size());
     }
 
     @Override

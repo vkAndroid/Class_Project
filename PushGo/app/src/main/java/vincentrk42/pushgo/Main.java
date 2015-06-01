@@ -34,15 +34,20 @@ public class Main extends ActionBarActivity {
 
         series = new ArrayList<Series>();
 
-        // load series info from memory
-//        for(int i=0; i<10; i++)
-//        {
-//            series.add(new Series("S-Title" + i, "S-Description" + i));
-//            for(int j=0; j<12; j++)
-//            {
-//                series.get(i).addEvent("E-Title" + i + ", " + j, "E-Description" + i + ", " + j);
-//            }
-//        }
+        // TEST DATA BEGIN
+        for(int i=0; i<10; i++)
+        {
+            series.add(new Series("S-Title" + i, "S-Description" + i));
+            for(int j=0; j<12; j++)
+            {
+                series.get(i).addEvent("E-Title" + i + ", " + j, "E-Description" + i + ", " + j);
+            }
+        }
+        // TEST DATA END
+
+        //load series info from memory
+
+
         ListView seriesListView = (ListView) findViewById(R.id.seriesListView);
         seriesAdapter = new SeriesAdapter(this, series);
         seriesListView.setAdapter(seriesAdapter);

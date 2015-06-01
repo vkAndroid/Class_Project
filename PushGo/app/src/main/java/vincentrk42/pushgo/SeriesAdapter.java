@@ -58,8 +58,9 @@ public class SeriesAdapter extends ArrayAdapter<Series> {
             public void onClick(View v) {
                 Log.d(TAG, "GO button clicked: " + position);
 
-
-
+                Intent intent = new Intent(getContext(), GoActivity.class);
+                intent.putExtra("serie", series.get(position));
+                context.startActivity(intent);
             }
         });
 

@@ -20,8 +20,8 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/goSeriesNameTextView"
-            android:text="Series_Name"
+            android:id="@+id/goSeriesTitleTextView"
+            android:text="Series_Title"
             android:textSize="30dp"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/currentStepNameTextView"
+            android:id="@+id/currentStepTitleTextView"
             android:text="Step"
             android:textSize="25dp"
             android:layout_centerInParent="true"
@@ -103,8 +103,8 @@
                 android:layout_height="match_parent" />
 
             <TextView
-                android:id="@+id/nextStepNameTextView"
-                android:text="Next_Step_Name"
+                android:id="@+id/nextStepTitleTextView"
+                android:text="Next_Step_Title"
                 android:layout_weight="7"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
