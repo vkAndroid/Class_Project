@@ -41,7 +41,7 @@ public class SeriesAdapter extends ArrayAdapter<Series> {
         editSerieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "edit button clicked: " + position);
+//                Log.d(TAG, "edit button clicked: " + position);
 
                 Intent intent = new Intent(getContext(), SeriesActivity.class);
                 intent.putExtra("serie", (android.os.Parcelable) series.get(position));
@@ -56,7 +56,7 @@ public class SeriesAdapter extends ArrayAdapter<Series> {
         serieGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "GO button clicked: " + position);
+//                Log.d(TAG, "GO button clicked: " + position);
 
                 Intent intent = new Intent(getContext(), GoActivity.class);
                 intent.putExtra("serie", (android.os.Parcelable) series.get(position));

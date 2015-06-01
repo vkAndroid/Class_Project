@@ -62,7 +62,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         eventEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "event EDIT button clicked: " + position);
+//                Log.d(TAG, "event EDIT button clicked: " + position);
 
                 Intent intent = new Intent(getContext(), EventActivity.class);
                 intent.putExtra("event", (android.os.Parcelable) events.get(position));

@@ -48,7 +48,7 @@ public class Main extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate is called");
+//        Log.d(TAG, "onCreate is called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -81,7 +81,7 @@ public class Main extends ActionBarActivity {
         createNewSequenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "createNewSequenceButton clicked");
+//                Log.d(TAG, "createNewSequenceButton clicked");
                 Intent intent = new Intent(Main.this, SeriesActivity.class);
                 startActivityForResult(intent, NEW_SERIES_REQUEST_CODE);
 
@@ -92,7 +92,7 @@ public class Main extends ActionBarActivity {
 
     private void readData()
     {
-        Log.d(TAG, "BEGIN READ DATA");
+//        Log.d(TAG, "BEGIN READ DATA");
         try {
             File file = new File(Environment.getExternalStorageDirectory(), DATA_SAVE_FILE_NAME);
             FileInputStream inStream = new FileInputStream(file);
@@ -112,8 +112,8 @@ public class Main extends ActionBarActivity {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        Log.d(TAG, "END READ DATA");
-        Log.d(TAG, "series size: " + series.size());
+//        Log.d(TAG, "END READ DATA");
+//        Log.d(TAG, "series size: " + series.size());
 
 
         // TODO READ IN DATA AND FORMAT IT CORRECTLY INTO THE PROPER CONTAINERS
@@ -143,7 +143,7 @@ public class Main extends ActionBarActivity {
 
     private void saveData()
     {
-        Log.d(TAG, "BEGIN SAVE DATA");
+//        Log.d(TAG, "BEGIN SAVE DATA");
         try {
             File file = new File(Environment.getExternalStorageDirectory(), DATA_SAVE_FILE_NAME);
             FileOutputStream outStream = new FileOutputStream(file);
@@ -159,7 +159,7 @@ public class Main extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d(TAG, "END SAVE DATA");
+//        Log.d(TAG, "END SAVE DATA");
 
         // TODO store series info to memory
 //        File file = new File(DATA_SAVE_FILE_NAME);
@@ -205,7 +205,7 @@ public class Main extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause called");
+//        Log.d(TAG, "onPause called");
         saveData();
     }
 
@@ -217,14 +217,14 @@ public class Main extends ActionBarActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop called");
+//        Log.d(TAG, "onStop called");
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy called");
+//        Log.d(TAG, "onDestroy called");
     }
 
     private void addSerie(Series serie)

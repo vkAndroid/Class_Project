@@ -40,7 +40,7 @@ public class SeriesActivity extends ActionBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "ONCREATE CALLED FROM SERIESACTIVITY");
+//        Log.d(TAG, "ONCREATE CALLED FROM SERIESACTIVITY");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.series_layout);
 

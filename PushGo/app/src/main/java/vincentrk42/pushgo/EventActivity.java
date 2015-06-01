@@ -34,7 +34,7 @@ public class EventActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "on create called from event edit");
+//        Log.d(TAG, "on create called from event edit");
         setContentView(R.layout.event_layout);
 
         position = -1;
