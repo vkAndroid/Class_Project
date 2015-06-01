@@ -37,26 +37,26 @@ public class EventAdapter extends ArrayAdapter<Event> {
         TextView eventNumberAndTitleTextView = (TextView) view.findViewById(R.id.eventNumberAndTitleTextView);
         eventNumberAndTitleTextView.setText((position+1) + " | " + (events.get(position)).getTitle());
 
-        Button eventUpButton = (Button) view.findViewById(R.id.eventUpButton);
-        eventUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "event up button clicked: " + position);
-
-
-            }
-        });
-
-        Button eventDownButton = (Button) view.findViewById(R.id.eventDownButton);
-        eventDownButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "event down button clicked: " + position);
-
-
-
-            }
-        });
+//        Button eventUpButton = (Button) view.findViewById(R.id.eventUpButton);
+//        eventUpButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG, "event up button clicked: " + position);
+//
+//
+//            }
+//        });
+//
+//        Button eventDownButton = (Button) view.findViewById(R.id.eventDownButton);
+//        eventDownButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG, "event down button clicked: " + position);
+//
+//
+//
+//            }
+//        });
 
         Button eventEditButton = (Button) view.findViewById(R.id.eventEditButton);
         eventEditButton.setOnClickListener(new View.OnClickListener() {
