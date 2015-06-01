@@ -61,7 +61,7 @@ public class EventActivity extends ActionBarActivity {
             public void onClick(View v) {
                 event = new Event(eventTitle.getText().toString(), eventDescription.getText().toString(), 0);
                 Intent intent = new Intent();
-                intent.putExtra("event", event);
+                intent.putExtra("event", (android.os.Parcelable) event);
                 if(position >= 0) {
                     intent.putExtra("eventPosition", position);
                 }

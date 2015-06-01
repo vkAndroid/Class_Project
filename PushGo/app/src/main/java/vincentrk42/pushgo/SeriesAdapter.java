@@ -44,7 +44,7 @@ public class SeriesAdapter extends ArrayAdapter<Series> {
                 Log.d(TAG, "edit button clicked: " + position);
 
                 Intent intent = new Intent(getContext(), SeriesActivity.class);
-                intent.putExtra("serie", series.get(position));
+                intent.putExtra("serie", (android.os.Parcelable) series.get(position));
                 intent.putExtra("seriePosition", position);
                 ((Activity)context).startActivityForResult(intent, EDIT_SERIES_REQUEST_CODE);
 
@@ -59,7 +59,7 @@ public class SeriesAdapter extends ArrayAdapter<Series> {
                 Log.d(TAG, "GO button clicked: " + position);
 
                 Intent intent = new Intent(getContext(), GoActivity.class);
-                intent.putExtra("serie", series.get(position));
+                intent.putExtra("serie", (android.os.Parcelable) series.get(position));
                 context.startActivity(intent);
             }
         });

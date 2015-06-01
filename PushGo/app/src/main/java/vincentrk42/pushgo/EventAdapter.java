@@ -65,7 +65,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
                 Log.d(TAG, "event EDIT button clicked: " + position);
 
                 Intent intent = new Intent(getContext(), EventActivity.class);
-                intent.putExtra("event", events.get(position));
+                intent.putExtra("event", (android.os.Parcelable) events.get(position));
                 intent.putExtra("eventPosition", position);
                 ((Activity)context).startActivityForResult(intent, EDIT_EVENT_REQUEST_CODE);
 

@@ -1,6 +1,8 @@
 package vincentrk42.pushgo;
 
 import android.content.Intent;
+import android.nfc.Tag;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,15 +13,33 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 
 
 public class Main extends ActionBarActivity {
 
     private static final String TAG = "MainActivity";
+    private static final String DATA_SAVE_FILE_NAME = "data_save_file_name";
     private static final int NEW_SERIES_REQUEST_CODE = 12;
     private static final int EDIT_SERIES_REQUEST_CODE = 11;
     private static final int DELETE_SERIES_RESULT_CODE = 13;
+
+    // set true to use fake data else set false
+    private static final boolean USE_TEST_DATA = false;
 
     private ArrayList<Series> series;
     private SeriesAdapter seriesAdapter;
@@ -34,19 +54,22 @@ public class Main extends ActionBarActivity {
 
         series = new ArrayList<Series>();
 
-        // TEST DATA BEGIN
-        for(int i=0; i<10; i++)
+        if(USE_TEST_DATA)
         {
-            series.add(new Series("S-Title" + i, "S-Description" + i));
-            for(int j=0; j<12; j++)
+            // TEST DATA BEGIN
+            for(int i=0; i<10; i++)
             {
-                series.get(i).addEvent("E-Title" + i + ", " + j, "E-Description" + i + ", " + j);
+                series.add(new Series("S-Title " + i, "S-Description " + i));
+                for(int j=0; j<12; j++)
+                {
+                    series.get(i).addEvent("E-Title " + i + ", " + j, "E-Description " + i + ", " + j);
+                }
             }
+            // TEST DATA END
         }
-        // TEST DATA END
-
-        //load series info from memory
-
+        else {
+            readData();
+        }
 
         ListView seriesListView = (ListView) findViewById(R.id.seriesListView);
         seriesAdapter = new SeriesAdapter(this, series);
@@ -65,6 +88,92 @@ public class Main extends ActionBarActivity {
             }
         });
 
+    }
+
+    private void readData()
+    {
+        Log.d(TAG, "BEGIN READ DATA");
+        try {
+            File file = new File(Environment.getExternalStorageDirectory(), DATA_SAVE_FILE_NAME);
+            FileInputStream inStream = new FileInputStream(file);
+            ObjectInputStream objectInStream = new ObjectInputStream(inStream);
+            int count = objectInStream.readInt();
+            for(int i=0; i<count; i++)
+            {
+                series.add((Series) objectInStream.readObject());
+            }
+            objectInStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (StreamCorruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "END READ DATA");
+        Log.d(TAG, "series size: " + series.size());
+
+
+        // TODO READ IN DATA AND FORMAT IT CORRECTLY INTO THE PROPER CONTAINERS
+//        try {
+//                InputStream inStream = new FileInputStream(DATA_SAVE_FILE_NAME);
+//                if(inStream != null) {
+//                    Log.d(TAG, "FILE EXISTS!");
+//                    InputStreamReader inputReader = new InputStreamReader(inStream);
+//                    BufferedReader buffReader = new BufferedReader(inputReader);
+//
+//                    String data;
+//                    do {
+//                        data = buffReader.readLine();
+//                        series.add(new Series(data));
+//
+//                    } while (data != null);
+//                    buffReader.close();
+//                }
+//                else {
+//                    Log.d(TAG, "NOT EXISTS, THE FILE DOES!");
+//                }
+//
+//            } catch (java.io.IOException e) {
+//                e.printStackTrace();
+//            }
+    }
+
+    private void saveData()
+    {
+        Log.d(TAG, "BEGIN SAVE DATA");
+        try {
+            File file = new File(Environment.getExternalStorageDirectory(), DATA_SAVE_FILE_NAME);
+            FileOutputStream outStream = new FileOutputStream(file);
+            ObjectOutputStream objectOutStream = new ObjectOutputStream(outStream);
+            objectOutStream.writeInt(series.size());
+            for(Series s: series)
+            {
+                objectOutStream.writeObject(s);
+            }
+            objectOutStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "END SAVE DATA");
+
+        // TODO store series info to memory
+//        File file = new File(DATA_SAVE_FILE_NAME);
+//        try {
+//            OutputStreamWriter outStream = new OutputStreamWriter(new FileOutputStream(file));
+//            for(int i=0; i<series.size(); i++)
+//            {
+//                String data = series.get(i).toString() + "\n";
+//                outStream.write(data);
+//            }
+//            outStream.close();
+//        } catch (java.io.IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -96,6 +205,8 @@ public class Main extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d(TAG, "onPause called");
+        saveData();
     }
 
     @Override
@@ -106,14 +217,14 @@ public class Main extends ActionBarActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
-        // TODO store series info to memory
+        Log.d(TAG, "onStop called");
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, "onDestroy called");
     }
 
     private void addSerie(Series serie)

@@ -58,7 +58,6 @@ public class SeriesActivity extends ActionBarActivity {
         }
         if(getIntent().hasExtra("seriePosition"))
         {
-            Log.d(TAG, "HAS POSITION");
             position = getIntent().getExtras().getInt("seriePosition");
         }
         if(!newSerie) {
@@ -89,7 +88,7 @@ public class SeriesActivity extends ActionBarActivity {
             public void onClick(View v) {
                 serie.setTitle(serieTitleEditText.getText().toString());
                 Intent intent = new Intent();
-                intent.putExtra("serie", serie);
+                intent.putExtra("serie", (android.os.Parcelable) serie);
                 if(position >= 0) {
                     intent.putExtra("seriePosition", position);
                 }
@@ -151,7 +150,6 @@ public class SeriesActivity extends ActionBarActivity {
         }
         if(resultCode == DELETE_EVENT_RESULT_CODE) {
             int pos = data.getExtras().getInt("eventPosition");
-            Log.d(TAG, "REMOVING EVENT : " + pos);
             serie.removeEvent(pos);
         }
         updateNumSteps();
